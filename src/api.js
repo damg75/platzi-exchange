@@ -13,26 +13,41 @@ function getAsset(coin) {
     return fetch(`${url_asset}/assets/${coin}`)
       .then(res => res.json())
       .then(res => res.data)
-  }
+}
   
-  function getAssetHistory(coin) {
-    const now = new Date()
-    const end = now.getTime()
-    now.setDate(now.getDate() - 1)
-    const start = now.getTime()
-  
-    return fetch(
-      `${url_asset}/assets/${coin}/history?interval=h1&start=${start}&end=${end}`
-    )
-      .then(res => res.json())
-      .then(res => res.data)
-  }
-  
-  export default {
-    getAssets,
-    getAsset,
-    getAssetHistory
-  }
+function getAssetHistory(coin) {
+  const now = new Date()
+  const end = now.getTime()
+  now.setDate(now.getDate() - 1)
+  const start = now.getTime()
+
+  return fetch(
+    `${url_asset}/assets/${coin}/history?interval=h1&start=${start}&end=${end}`
+  )
+    .then(res => res.json())
+    .then(res => res.data)
+}
+
+
+function getMarkets(coin) {
+  return fetch(`${url_asset}/assets/${coin}/markets?limit=10`)
+    .then(res => res.json())
+    .then(res => res.data)
+}
+
+function getExchange(id) {
+  return fetch(`${url_asset}/exchanges/${id}`)
+    .then(res => res.json())
+    .then(res => res.data)
+}
+
+export default {
+  getAssets,
+  getAsset,
+  getMarkets,
+  getExchange,
+  getAssetHistory
+}
 
 
 //   Esos tres puntitos se llaman el spread operator y convierten un array en una lista. ;D
